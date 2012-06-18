@@ -9,7 +9,7 @@ use MooseX::AttributeShortcuts;
 with 'Dist::Zilla::Role::PrereqSource';
 
 # debugging...
-use Smart::Comments '###';
+#use Smart::Comments '###';
 
 has remove_matching => (
     traits  => ['Array'],
@@ -25,6 +25,13 @@ has remove_matching => (
 sub _build_remove_matching { [ ] }
 
 sub mvp_multivalue_args { 'remove_matching' }
+
+=method register_prereqs
+
+We implement this method to scan the list of prerequisites assembled to date,
+and remove any tat match any of the expressions given to us.
+
+=cut
 
 sub register_prereqs {
     my ($self) = @_;
@@ -59,6 +66,8 @@ sub register_prereqs {
 __PACKAGE__->meta->make_immutable;
 !!42;
 __END__
+
+=for Pod::Coverage mvp_multivalue_args
 
 =head1 SYNOPSIS
 
